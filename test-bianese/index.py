@@ -12,28 +12,32 @@ win = tk.Tk()
 # 设置标题
 win.title("binanceTool")
 # 设置大小和位置
-win.geometry("800x800+200+50")
+win.geometry("800x400+200+50")
 
 # 表格
 # 定义列
-columns = ("coinName", "startPrice", "nowPrice", "rate")
-tree = ttk.Treeview(win, columns=columns)
-tree.pack()
-
+columns = ("index", "coinName", "startPrice", "nowPrice", "rate")
+tree = ttk.Treeview(win, show="headings", columns=columns)
+tree.grid(row=0, column=0, sticky=tk.NSEW)
 
 # 设置列，列还不显示
-tree.column("coinName", width=100)
-tree.column("startPrice", width=100)
-tree.column("nowPrice", width=100)
-tree.column("rate", width=100)
+for i in columns:
+    tree.column(i, width=100)
 
 # 设置表头
 for i in columns:
     tree.heading(i, text=i)
 
+# 创建滚动条
+scroll = ttk.Scrollbar(win, command=tree.yview)
+
+# side放到窗体的哪一侧,  fill填充
+scroll.grid(row=0, column=1, sticky=tk.NS)
+# 关联
+tree.config(yscrollcommand=scroll.set)
 
 # 添加数据
-tree.insert("", 0, values=("小郑", "34", "177cm", "70kg"))
-tree.insert("", 0, values=("小张", "43", "188cm", "90kg"))
+for i in range(0, 100):
+    tree.insert("", i, values=(i, "小郑", "34", "177cm", "70kg"))
 
 win.mainloop()
