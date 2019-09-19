@@ -1,11 +1,19 @@
 from urllib import request as rq
 import tkinter as tk
 from tkinter import ttk
+import provider as pr
+import json
 
 
-# price = rq.urlopen('https://api.binance.com/api/v3/ticker/price')
+price = rq.urlopen('https://api.binance.com/api/v3/ticker/price')
 
-# httpVal=price.read()
+httpVal = price.read()
+# 转码
+httpVal = httpVal.decode('utf-8')
+# json转数组
+httpVal = json.loads(httpVal)
+# print(pr.typeof(httpVal), httpVal)
+
 
 # 创建主窗口
 win = tk.Tk()
@@ -37,7 +45,10 @@ scroll.grid(row=0, column=1, sticky=tk.NS)
 tree.config(yscrollcommand=scroll.set)
 
 # 添加数据
-for i in range(0, 100):
-    tree.insert("", i, values=(i, "小郑", "34", "177cm", "70kg"))
+count = 1
+for i in httpVal:
+    print(i)
+    tree.insert("", count, values=(count, i['symbol'], "--", i['price'], "70kg"))
+    count += 1
 
 win.mainloop()
