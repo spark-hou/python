@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import provider as pr
 import json
+import os
 
 
 price = rq.urlopen('https://api.binance.com/api/v3/ticker/price')
@@ -43,12 +44,26 @@ scroll = ttk.Scrollbar(win, command=tree.yview)
 scroll.grid(row=0, column=1, sticky=tk.NS)
 # 关联
 tree.config(yscrollcommand=scroll.set)
-
+dataArr = []
 # 添加数据
 count = 1
 for i in httpVal:
-    print(i)
-    tree.insert("", count, values=(count, i['symbol'], "--", i['price'], "70kg"))
-    count += 1
+    length = len(i['symbol'])
+    # print(i, length, i['symbol'][(length-3):])
+    if i['symbol'][(length-3):] == "BTC":
+        tree.insert("", count, values=(
+            count, i['symbol'][:(length-3)], "--", i['price'], "70kg"))
+        dataArr.append(i)
+        count += 1
+
+print(os.path.abspath(__file__))
+
+
+try:
+    with open('/path/to/file', 'r') as f:
+        print(f.read())
+finally:
+    if f:
+        f.close()
 
 win.mainloop()
