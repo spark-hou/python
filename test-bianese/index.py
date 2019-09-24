@@ -107,5 +107,6 @@ for key in nowPrice:
 with open(pricePath, mode='w', encoding='utf-8') as f:
     print("写入更新后的价格为历史价格")
     f.write(json.dumps(runTimePrice))
+#获取持有的币种
 
 win.mainloop()
