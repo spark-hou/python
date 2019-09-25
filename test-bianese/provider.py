@@ -16,3 +16,6 @@ def typeof(variate):
     elif isinstance(variate, set):
         type = "set"
     return type
+
+#币种列表
+coinLis=[]
