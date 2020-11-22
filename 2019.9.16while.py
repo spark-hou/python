@@ -1,6 +1,6 @@
 import random
 serect=random.randint(1,10)
-print("answer is :",serect)
+print("answer is :", serect)
 
 
 print("------------spark-text--------------")
