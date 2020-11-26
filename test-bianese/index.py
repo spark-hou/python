@@ -6,7 +6,6 @@ import json
 import os
 import operator
 
-
 price = rq.urlopen('https://api.binance.com/api/v3/ticker/price')
 
 httpVal = price.read()
@@ -55,14 +54,14 @@ changeData = []
 for i in httpVal:
     length = len(i['symbol'])
     # print(i, length, i['symbol'][(length-3):])
-    if i['symbol'][(length-3):] == "BTC":
-        nowPrice[i['symbol'][:(length-3)]] = i['price']
+    if i['symbol'][(length - 3):] == "BTC":
+        nowPrice[i['symbol'][:(length - 3)]] = i['price']
 # nowPrice{}拼接完成
 print("当前文件夹路径", os.path.abspath(__file__))
 pathLen = len(os.path.abspath(__file__))
-nowPath = os.path.abspath(__file__)[:(pathLen-9)]
+nowPath = os.path.abspath(__file__)[:(pathLen - 9)]
 # 历史价格路径
-pricePath = nowPath+"\historyPrice.txt"
+pricePath = nowPath + "\historyPrice.txt"
 print(nowPath, pricePath)
 
 if os.path.exists(pricePath):
@@ -79,15 +78,15 @@ else:
 for i in httpVal:
     length = len(i['symbol'])
     # print(i, length, i['symbol'][(length-3):])
-    if i['symbol'][(length-3):] == "BTC":
+    if i['symbol'][(length - 3):] == "BTC":
         obj = {}
-        obj['symbol'] = i['symbol'][:(length-3)]
+        obj['symbol'] = i['symbol'][:(length - 3)]
         obj['nowPrice'] = i['price']
-        if i['symbol'][:(length-3)] in historyPrice:
-            obj['startPrice'] = historyPrice[i['symbol'][:(length-3)]]
+        if i['symbol'][:(length - 3)] in historyPrice:
+            obj['startPrice'] = historyPrice[i['symbol'][:(length - 3)]]
         else:
             obj['startPrice'] = i['price']
-        obj['rate'] = float(obj['nowPrice'])/float(obj['startPrice'])
+        obj['rate'] = float(obj['nowPrice']) / float(obj['startPrice'])
         changeData.append(obj)
 # 根据rate排序
 sort_changeData = sorted(changeData, key=operator.itemgetter('rate'))
@@ -107,6 +106,6 @@ for key in nowPrice:
 with open(pricePath, mode='w', encoding='utf-8') as f:
     print("写入更新后的价格为历史价格")
     f.write(json.dumps(runTimePrice))
-#获取持有的币种
+# 获取持有的币种
 
 win.mainloop()
