@@ -26,23 +26,23 @@ print(tup)
 del tup
 print("删除后的元组 tup : ")
 try:
-    print(tup)
+  print(tup)
 except Exception:
-    print(Exception)
+  print(Exception)
 
 
 # 创建一个迭代器
 class MyNumbers:
-    b = 1
+  b = 1
 
-    def __iter__(self):
-        self.a = 1
-        return self
+  def __iter__(self):
+    self.a = 1
+    return self
 
-    def __next__(self):
-        x = self.a
-        self.a += 1
-        return x
+  def __next__(self):
+    x = self.a
+    self.a += 1
+    return x
 
 
 myclass = MyNumbers()
