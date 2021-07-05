@@ -2,7 +2,7 @@
 node_modules
 /dist
 
-venv
+
 
 # local env files
 .env.local
@@ -21,3 +21,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+#忽略两个训练集的图片
+/tensorflow/mooc-tensorflow2.0/class4/FASHION_FC/fashion_image_label
+/tensorflow/mooc-tensorflow2.0/class4/MNIST_FC/mnist_image_label
